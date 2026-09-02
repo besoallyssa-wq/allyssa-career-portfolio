@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jan Allyssa Beso — Logistics Coordinator</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    /* Brand palette — Floral White / Pastel Pink / Racing Red / Crushed Berry / Rich Mahogany */
+    --floral:#fff9f2;
+    --pastel:#ffcad0;
+    --racing:#f10222;
+    --berry:#892325;
+    --mahogany:#250202;
+
+    --bg:#fff9f2;
+    --panel:#ffffff;
+    --panel-tint:#fff1ee;
+    --line:#f0d7d3;
+    --line-soft:#f6e6e2;
+    --text:#2a0d0d;
+    --muted:#8a5d5a;
+    --muted-dim:#c79c96;
+    --neutral-status:#9c7d78;
+
+    --display:'Space Grotesk',sans-serif;
+    --body:'Inter',sans-serif;
+    --mono:'IBM Plex Mono',monospace;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important;}
+  }
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--body);
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;}
+  img{max-width:100%; display:block;}
+  .wrap{max-width:1180px; margin:0 auto; padding:0 28px;}
+  section{padding:96px 0;}
+  @media (max-width:720px){ section{padding:64px 0;} }
+
+  h1,h2,h3,h4{font-family:var(--display); font-weight:700; letter-spacing:-0.01em; color:var(--mahogany);}
+  .eyebrow{
+    font-family:var(--mono); font-size:12px; letter-spacing:0.14em; text-transform:uppercase;
+    color:var(--racing); display:flex; align-items:center; gap:10px; margin-bottom:14px;
+  }
+  .eyebrow::before{content:""; width:7px; height:7px; background:var(--racing); border-radius:50%; box-shadow:0 0 0 3px rgba(241,2,34,0.15);}
+  .section-title{font-size:clamp(26px,3.4vw,38px); margin-bottom:10px;}
+  .section-sub{color:var(--muted); max-width:640px; font-size:15.5px; margin-bottom:44px;}
+
+  /* ---------- NAV / CONSOLE HEADER ---------- */
+  header.console{
+    position:sticky; top:0; z-index:50;
+    background:rgba(37,2,2,0.94); backdrop-filter:blur(10px);
+    border-bottom:1px solid rgba(255,202,208,0.15);
+  }
+  .console-inner{
+    max-width:1180px; margin:0 auto; padding:0 28px;
+    display:flex; align-items:center; justify-content:space-between; height:58px;
+    font-family:var(--mono); font-size:12.5px;
+  }
+  .console-brand{display:flex; align-items:center; gap:10px; font-family:var(--display); font-weight:700; font-size:15px; letter-spacing:0.02em; color:var(--floral);}
+  .console-brand .dot{width:8px; height:8px; border-radius:50%; background:var(--racing); box-shadow:0 0 8px var(--racing);}
+  nav.console-links{display:flex; gap:26px;}
+  nav.console-links a{
+    color:var(--pastel); text-decoration:none; text-transform:uppercase; letter-spacing:0.08em; font-size:11.5px;
+    transition:color .15s ease;
+  }
+  nav.console-links a:hover, nav.console-links a:focus-visible{color:var(--racing);}
+  .console-clock{color:rgba(255,202,208,0.55); display:flex; gap:16px;}
+  @media (max-width:900px){ nav.console-links{display:none;} }
+
+  /* ---------- HERO / CONTROL TOWER ---------- */
+  .hero{padding:64px 0 40px;}
+  .hero-top{display:grid; grid-template-columns:1.1fr 0.9fr; gap:56px; align-items:start;}
+  @media (max-width:900px){ .hero-top{grid-template-columns:1fr;} }
+  .hero h1{font-size:clamp(32px,4.6vw,50px); line-height:1.06; margin-bottom:18px;}
+  .hero h1 span{color:var(--racing);}
+  .hero p.lead{color:var(--muted); font-size:17px; max-width:480px; margin-bottom:28px;}
+  .hero-tags{display:flex; flex-wrap:wrap; gap:8px; margin-bottom:34px;}
+  .tag{
+    font-family:var(--mono); font-size:11.5px; color:var(--berry);
+    border:1px solid rgba(137,35,37,0.3); background:var(--pastel);
+    padding:6px 11px; border-radius:3px; letter-spacing:0.03em;
+  }
+  .cta-row{display:flex; gap:14px; flex-wrap:wrap;}
+  .btn{
+    font-family:var(--mono); font-size:13px; letter-spacing:0.04em; text-decoration:none;
+    padding:13px 22px; border-radius:3px; display:inline-flex; align-items:center; gap:8px;
+    transition:transform .15s ease, background .15s ease, border-color .15s ease;
+  }
+  .btn-primary{background:var(--racing); color:var(--floral); font-weight:600;}
+  .btn-primary:hover{transform:translateY(-1px); background:#d4021e;}
+  .btn-ghost{border:1px solid var(--berry); color:var(--berry);}
+  .btn-ghost:hover{border-color:var(--racing); color:var(--racing); background:var(--pastel);}
+
+  /* Control tower panel */
+  .tower-panel{
+    background:var(--panel); border:1px solid var(--line); border-radius:6px; overflow:hidden;
+    box-shadow:0 18px 40px -20px rgba(137,35,37,0.25);
+  }
+  .tower-header{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:12px 16px; border-bottom:1px solid var(--line-soft);
+    font-family:var(--mono); font-size:11px; color:var(--muted); text-transform:uppercase; letter-spacing:0.08em;
+    background:var(--panel-tint);
+  }
+  .tower-header .live{color:var(--racing); display:flex; align-items:center; gap:6px;}
+  .tower-header .live::before{content:""; width:6px; height:6px; border-radius:50%; background:var(--racing); animation:pulse 1.8s ease-in-out infinite;}
+  @keyframes pulse{0%,100%{opacity:1;} 50%{opacity:0.25;}}
+
+  .map-box{position:relative; height:190px; border-bottom:1px solid var(--line-soft); overflow:hidden; background:
+    radial-gradient(ellipse at 50% 40%, rgba(241,2,34,0.05), transparent 70%),
+    repeating-linear-gradient(0deg, transparent, transparent 23px, rgba(137,35,37,0.035) 24px),
+    repeating-linear-gradient(90deg, transparent, transparent 23px, rgba(137,35,37,0.035) 24px);
+  }
+  .route{position:absolute; border-top:1px dashed rgba(137,35,37,0.3);}
+  .node{position:absolute; width:6px; height:6px; border-radius:50%; background:var(--racing); box-shadow:0 0 10px rgba(241,2,34,0.7);}
+  .node.ping::after{
+    content:""; position:absolute; inset:-8px; border-radius:50%; border:1px solid var(--racing);
+    animation:ring 2.4s ease-out infinite;
+  }
+  @keyframes ring{0%{transform:scale(0.3); opacity:0.9;} 100%{transform:scale(2.6); opacity:0;}}
+
+  .tt-table{width:100%; border-collapse:collapse; font-family:var(--mono); font-size:12px;}
+  .tt-table th{
+    text-align:left; padding:9px 14px; color:var(--muted-dim); font-weight:500; text-transform:uppercase;
+    font-size:10px; letter-spacing:0.06em; border-bottom:1px solid var(--line-soft);
+  }
+  .tt-table td{padding:10px 14px; border-bottom:1px solid var(--line-soft); color:var(--text);}
+  .tt-table tr:last-child td{border-bottom:none;}
+  .status-pill{
+    display:inline-flex; align-items:center; gap:5px; font-size:10.5px; padding:3px 8px; border-radius:20px;
+  }
+  .status-pill::before{content:""; width:5px; height:5px; border-radius:50%;}
+  .status-transit{background:rgba(241,2,34,0.1); color:var(--racing);}
+  .status-transit::before{background:var(--racing);}
+  .status-booked{background:rgba(137,35,37,0.08); color:var(--berry);}
+  .status-booked::before{background:var(--berry);}
+  .status-risk{background:var(--racing); color:var(--floral);}
+  .status-risk::before{background:var(--floral);}
+  .status-delivered{background:rgba(156,125,120,0.14); color:var(--neutral-status);}
+  .status-delivered::before{background:var(--neutral-status);}
+
+  /* ---------- KPI STRIP ---------- */
+  .kpi-strip{
+    display:grid; grid-template-columns:repeat(4,1fr); border:1px solid var(--line); border-radius:6px; overflow:hidden; margin-top:56px;
+  }
+  @media (max-width:720px){ .kpi-strip{grid-template-columns:repeat(2,1fr);} }
+  .kpi-cell{padding:22px 20px; border-right:1px solid var(--line-soft); background:var(--panel);}
+  .kpi-cell:last-child{border-right:none;}
+  .kpi-num{font-family:var(--mono); font-size:26px; font-weight:600; color:var(--racing);}
+  .kpi-label{font-size:11.5px; color:var(--muted); text-transform:uppercase; letter-spacing:0.06em; margin-top:4px;}
+
+  /* ---------- ABOUT ---------- */
+  .about-grid{display:grid; grid-template-columns:1fr 1fr; gap:56px;}
+  @media (max-width:820px){ .about-grid{grid-template-columns:1fr;} }
+  .about-grid p{color:var(--muted); margin-bottom:14px; font-size:15px;}
+  .comp-cols{display:grid; grid-template-columns:1fr 1fr; gap:22px 28px;}
+  .comp-group h4{font-size:13px; color:var(--racing); text-transform:uppercase; letter-spacing:0.06em; margin-bottom:10px; font-family:var(--mono); font-weight:600;}
+  .comp-group ul{list-style:none; font-size:13.5px; color:var(--text);}
+  .comp-group li{padding:5px 0 5px 14px; position:relative; border-bottom:1px solid var(--line-soft);}
+  .comp-group li::before{content:"›"; position:absolute; left:0; color:var(--racing);}
+
+  /* ---------- EXPERIENCE TIMELINE ---------- */
+  .timeline{border-left:2px solid var(--pastel); padding-left:28px; display:flex; flex-direction:column; gap:30px;}
+  .tl-item{position:relative;}
+  .tl-item::before{content:""; position:absolute; left:-33px; top:4px; width:10px; height:10px; border-radius:50%; background:var(--racing); box-shadow:0 0 0 4px var(--floral), 0 0 0 5px var(--pastel);}
+  .tl-role-row{display:flex; align-items:baseline; justify-content:space-between; flex-wrap:wrap; gap:8px 16px;}
+  .tl-role{font-family:var(--display); font-weight:700; font-size:16.5px;}
+  .tl-company{color:var(--berry); font-size:13.5px; font-family:var(--mono);}
+  .tl-date{font-family:var(--mono); font-size:11.5px; color:var(--muted-dim); white-space:nowrap;}
+  .tl-item p{color:var(--muted); font-size:13.5px; margin-top:6px; max-width:680px;}
+
+  /* ---------- SYSTEM SECTIONS ---------- */
+  .sys-block{border-top:1px solid var(--line-soft); padding-top:56px; margin-top:56px;}
+  .sys-block:first-of-type{border-top:none; margin-top:0;}
+  .sys-head{display:flex; align-items:baseline; gap:16px; margin-bottom:8px; flex-wrap:wrap;}
+  .sys-tag{font-family:var(--mono); font-size:11px; color:var(--floral); background:var(--racing); padding:3px 9px; border-radius:3px; font-weight:600; letter-spacing:0.04em;}
+  .prof-tag{font-family:var(--mono); font-size:10px; text-transform:uppercase; letter-spacing:0.06em; padding:3px 9px; border-radius:20px; border:1px solid var(--berry); color:var(--berry);}
+  .prof-tag.beginner{border-color:var(--muted-dim); color:var(--muted);}
+  .sys-block h3{font-size:24px;}
+  .sys-desc{color:var(--muted); max-width:640px; font-size:14.5px; margin:10px 0 26px;}
+  .sys-cols{display:grid; grid-template-columns:1fr 1fr; gap:40px;}
+  @media (max-width:860px){ .sys-cols{grid-template-columns:1fr;} }
+  .cap-list{list-style:none; font-size:13.5px; color:var(--muted); display:grid; grid-template-columns:1fr 1fr; gap:8px 18px;}
+  .cap-list li{padding-left:14px; position:relative;}
+  .cap-list li::before{content:"›"; position:absolute; left:0; color:var(--racing);}
+
+  .flow{display:flex; align-items:center; flex-wrap:wrap; gap:0; font-family:var(--mono); font-size:11.5px;}
+  .flow-step{
+    background:var(--panel); border:1px solid var(--line); border-radius:4px; padding:8px 12px; color:var(--text);
+    white-space:nowrap;
+  }
+  .flow-arrow{color:var(--muted-dim); padding:0 8px; font-size:13px;}
+
+  .mini-panel{background:var(--panel); border:1px solid var(--line); border-radius:6px; padding:18px 20px; margin-top:20px;}
+  .mini-panel-label{font-family:var(--mono); font-size:10.5px; text-transform:uppercase; color:var(--muted-dim); letter-spacing:0.07em; margin-bottom:12px;}
+  .kpi-mini-row{display:flex; gap:22px; flex-wrap:wrap; margin-bottom:14px;}
+  .kpi-mini{font-family:var(--mono);}
+  .kpi-mini b{color:var(--racing); font-size:16px; display:block;}
+  .kpi-mini span{color:var(--muted-dim); font-size:10.5px; text-transform:uppercase; letter-spacing:0.05em;}
+  .mini-table{width:100%; border-collapse:collapse; font-family:var(--mono); font-size:11.5px;}
+  .mini-table th{text-align:left; padding:6px 8px; color:var(--muted-dim); font-weight:500; border-bottom:1px solid var(--line-soft); font-size:10px; text-transform:uppercase;}
+  .mini-table td{padding:7px 8px; border-bottom:1px solid var(--line-soft);}
+
+  .risk-legend{display:flex; gap:16px; flex-wrap:wrap; font-family:var(--mono); font-size:11.5px; margin-top:14px;}
+  .risk-legend span{display:flex; align-items:center; gap:6px;}
+  .dot-sm{width:8px; height:8px; border-radius:50%;}
+
+  /* ---------- SIMULATION BADGE ---------- */
+  .sim-badge{
+    display:inline-flex; align-items:center; gap:6px; font-family:var(--mono); font-size:10px;
+    color:var(--muted-dim); border:1px dashed var(--muted-dim); padding:4px 9px; border-radius:3px; margin-top:14px;
+    text-transform:uppercase; letter-spacing:0.05em;
+  }
+
+  /* ---------- CASE STUDIES ---------- */
+  .case-grid{display:grid; grid-template-columns:1fr 1fr; gap:24px;}
+  @media (max-width:820px){ .case-grid{grid-template-columns:1fr;} }
+  .case-card{background:var(--panel); border:1px solid var(--line); border-radius:6px; padding:26px 26px 22px;}
+  .case-num{font-family:var(--mono); color:var(--pastel); background:var(--berry); display:inline-block; padding:2px 8px; border-radius:3px; font-size:11px; letter-spacing:0.08em;}
+  .case-card h4{font-size:18px; margin:10px 0 12px;}
+  .case-card .flow{margin:14px 0;}
+  .case-card p{color:var(--muted); font-size:13.5px;}
+
+  /* ---------- EDUCATION / CERTS ---------- */
+  .edu-grid{display:grid; grid-template-columns:1fr 1fr; gap:40px;}
+  @media (max-width:820px){ .edu-grid{grid-template-columns:1fr;} }
+  .edu-item{margin-bottom:18px;}
+  .edu-item .deg{font-family:var(--display); font-weight:700; font-size:15.5px;}
+  .edu-item .school{color:var(--berry); font-size:13px; font-family:var(--mono);}
+  .edu-item .yr{color:var(--muted-dim); font-size:11.5px; font-family:var(--mono);}
+  .cert-list{list-style:none;}
+  .cert-list li{padding:9px 0; border-bottom:1px solid var(--line-soft); font-size:13.5px; display:flex; justify-content:space-between; gap:12px;}
+  .cert-list li span:last-child{color:var(--muted-dim); font-family:var(--mono); font-size:11.5px; white-space:nowrap;}
+
+  /* ---------- TOOLS ---------- */
+  .tools-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line); border:1px solid var(--line); border-radius:6px; overflow:hidden;}
+  @media (max-width:820px){ .tools-grid{grid-template-columns:repeat(2,1fr);} }
+  @media (max-width:520px){ .tools-grid{grid-template-columns:1fr;} }
+  .tool-cell{background:var(--panel); padding:20px 22px;}
+  .tool-cell .grp-row{display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;}
+  .tool-cell .grp{font-family:var(--mono); font-size:10px; text-transform:uppercase; letter-spacing:0.07em; color:var(--racing);}
+  .tool-cell .name{font-family:var(--display); font-weight:600; font-size:15.5px; margin-bottom:4px;}
+  .tool-cell .desc{color:var(--muted); font-size:12.5px;}
+
+  /* ---------- CONTACT / FOOTER ---------- */
+  footer{background:var(--mahogany); padding:64px 0 40px;}
+  footer h2{color:var(--floral);}
+  .contact-grid{display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:30px;}
+  .contact-grid h2{font-size:clamp(24px,3vw,32px); max-width:520px;}
+  .contact-links{display:flex; gap:14px; flex-wrap:wrap;}
+  .contact-links .btn-ghost{border-color:var(--pastel); color:var(--pastel);}
+  .contact-links .btn-ghost:hover{border-color:var(--racing); color:var(--racing); background:transparent;}
+  .foot-bottom{margin-top:50px; padding-top:20px; border-top:1px solid rgba(255,202,208,0.15); display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; font-family:var(--mono); font-size:11px; color:rgba(255,202,208,0.55);}
+  .foot-meta{display:flex; gap:18px; flex-wrap:wrap; color:rgba(255,202,208,0.7); font-family:var(--mono); font-size:12px; margin-top:18px;}
+
+  ::selection{background:rgba(241,2,34,0.22);}
+  a:focus-visible, button:focus-visible{outline:2px solid var(--racing); outline-offset:2px;}
+</style>
+</head>
+<body>
+
+<header class="console">
+  <div class="console-inner">
+    <div class="console-brand"><span class="dot"></span> J. BESO // LOGISTICS OPS</div>
+    <nav class="console-links">
+      <a href="#about">About</a>
+      <a href="#experience">Experience</a>
+      <a href="#systems">Systems</a>
+      <a href="#cases">Case Studies</a>
+      <a href="#education">Education</a>
+      <a href="#tools">Tools</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="console-clock"><span id="clock-utc">UTC --:--</span></div>
+  </div>
+</header>
+
+<main>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-top">
+        <div>
+          <div class="eyebrow">Logistics Coordinator</div>
+          <h1>Manufacturing, inventory, logistics, and customer support — <span>run end to end.</span></h1>
+          <p class="lead">11 years managing the full supply chain cycle for global clients — project management, production planning, inventory control, freight logistics, and customer support, coordinated through SAP, Zoho CRM, and modern logistics systems.</p>
+          <div class="hero-tags">
+            <span class="tag">PROJECT MANAGEMENT</span>
+            <span class="tag">MANUFACTURING &amp; INVENTORY</span>
+            <span class="tag">LOGISTICS &amp; FREIGHT</span>
+            <span class="tag">CUSTOMER SUPPORT</span>
+            <span class="tag">ZOHO CRM · SAP ERP</span>
+          </div>
+          <div class="cta-row">
+            <a href="#experience" class="btn btn-primary">View Experience →</a>
+            <a href="#contact" class="btn btn-ghost">Get in touch</a>
+          </div>
+        </div>
+
+        <div class="tower-panel" aria-hidden="false">
+          <div class="tower-header">
+            <span>Shipment Control Tower</span>
+            <span class="live">Live</span>
+          </div>
+          <div class="map-box" id="mapBox"></div>
+          <table class="tt-table" id="ttTable">
+            <thead>
+              <tr><th>Job</th><th>Lane</th><th>ETA</th><th>Status</th></tr>
+            </thead>
+            <tbody id="ttBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="kpi-strip">
+        <div class="kpi-cell"><div class="kpi-num">11</div><div class="kpi-label">Years Experience</div></div>
+        <div class="kpi-cell"><div class="kpi-num">10–18%</div><div class="kpi-label">Freight Cost Reduction</div></div>
+        <div class="kpi-cell"><div class="kpi-num">&gt;95%</div><div class="kpi-label">DIFOT Performance</div></div>
+        <div class="kpi-cell"><div class="kpi-num">9</div><div class="kpi-label">Roles Across Supply Chain</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="wrap">
+      <div class="eyebrow">About</div>
+      <h2 class="section-title">Operations background, systems fluency</h2>
+      <p class="section-sub">Cabuyao City, Laguna, Philippines — working remotely with teams and clients across time zones.</p>
+      <div class="about-grid">
+        <div>
+          <p>Operations and logistics professional with 11 years managing end-to-end supply chain activity — from raw material planning and production scheduling through freight forwarding, customs documentation, and final delivery. Comfortable owning a full operational cycle, not just a single stage of it.</p>
+          <p>Proven at running logistics and warehousing operations at scale: delivered 10–18% freight cost reductions through route optimization and shipment consolidation, and sustained &gt;95% DIFOT performance through despatch governance and proactive shipment tracking. Equally strong on the documentation and compliance side — waybills, commercial invoices, international shipping paperwork, freight forwarder rate negotiation, and PEZA compliance filing.</p>
+          <p>Skilled in supply and demand planning, inventory control, and capacity/material planning, with a track record of coordinating across suppliers, manufacturers, 3PLs, customs brokers, and carriers to keep every link of the chain moving and audit-ready.</p>
+          <p>Familiar with Carton Cloud (WMS), Cario (FMS), FedEx, and DHL, with beginner-level CargoWise exposure, plus SAP ERP, Zoho CRM, and standard MS Office tools. Proven track record working remotely and independently, including a prior Virtual Assistant role supporting logistics pipelines and client communications.</p>
+        </div>
+        <div>
+          <div class="comp-cols">
+            <div class="comp-group">
+              <h4>Import/Export &amp; Docs</h4>
+              <ul>
+                <li>Bill of Lading (B/L)</li>
+                <li>Commercial Invoice &amp; Packing List</li>
+                <li>Freight Forwarder Coordination</li>
+                <li>Customs Broker Liaison</li>
+                <li>PEZA / Trade Compliance</li>
+                <li>Freight Rate Negotiation</li>
+              </ul>
+            </div>
+            <div class="comp-group">
+              <h4>Purchasing &amp; Inventory</h4>
+              <ul>
+                <li>Purchasing &amp; Supplier Comms</li>
+                <li>Inventory Management &amp; Control</li>
+                <li>Demand Forecasting</li>
+                <li>Stock Reconciliation &amp; Reporting</li>
+                <li>Vendor &amp; Supplier Management</li>
+              </ul>
+            </div>
+            <div class="comp-group">
+              <h4>Logistics &amp; Operations</h4>
+              <ul>
+                <li>Logistics &amp; Transportation</li>
+                <li>Warehouse Management</li>
+                <li>3PL Management</li>
+                <li>SOP Development</li>
+                <li>Project Management</li>
+                <li>KPI Management</li>
+              </ul>
+            </div>
+            <div class="comp-group">
+              <h4>Systems &amp; Software</h4>
+              <ul>
+                <li>Carton Cloud (WMS)</li>
+                <li>Cario (FMS)</li>
+                <li>FedEx / DHL</li>
+                <li>CargoWise (Beginner)</li>
+                <li>SAP ERP</li>
+                <li>Excel · Jira · Trello · Notion · Slack</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="wrap">
+      <div class="eyebrow">Experience</div>
+      <h2 class="section-title">Work history</h2>
+      <p class="section-sub">Nine roles across manufacturing planning, import/export, and end-to-end logistics operations.</p>
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-role-row">
+            <div><span class="tl-role">Operations Manager</span> — <span class="tl-company">ouvar (Remote: Australia)</span></div>
+            <div class="tl-date">Jan 2025 – Jul 2026</div>
+          </div>
+          <p>Led end-to-end logistics, warehousing, transportation, and supply chain operations for national retail activation programs. Delivered 10–18% freight cost reductions through route optimization and shipment consolidation, and maintained &gt;95% DIFOT through strict despatch governance.</p>
+        </div>
+        <div class="tl-item">
+          <div class="tl-role-row">
+            <div><span class="tl-role">Project Manager</span> — <span class="tl-company">ouvar</span></div>
+            <div class="tl-date">Mar 2024 – Feb 2025</div>
+          </div>
+          <p>Managed end-to-end execution of high-value client activation and campaign launch projects, coordinating 3PLs, warehouses, suppliers, and internal stakeholders across national rollouts.</p>
+        </div>
+        <div class="tl-item">
+          <div class="tl-role-row">
+            <div><span class="tl-role">Virtual Assistant</span> — <span class="tl-company">ouvar</span></div>
+            <div class="tl-date">Dec 2023 – Mar 2024</div>
+          </div>
+          <p>Provided administrative and operational support across logistics pipelines, project coordination, reporting, and customer communications.</p>
+        </div>
+        <div class="tl-item">
+          <div class="tl-role-row">
+            <div><span class="tl-role">Business Planner</span> — <span class="tl-company">Vishay Siliconix Philippines</span></div>
+            <div class="tl-date">2022 – 2023</div>
+          </div>
+          <p>Aligned monthly target revenue with production output plans; designed an automated raw material planning tracker to mitigate stockout risk via SAP-driven material planning.</p>
+        </div>
+        <div class="tl-item">
+          <div class="tl-role-row">
+            <div><span class="tl-role">Data Entry Specialist — Inventory Management</span> — <span class="tl-company">Lettered L Food Services</span></div>
+            <div class="tl-date">2020 – 2022</div>
+          </div>
+          <p>Maintained inventory accuracy through rigorous data validation and reconciliation; standardized product SKUs and translated consumption metrics into costing data.</p>
+        </div>
+        <div class="tl-item">
+          <div class="tl-role-row">
+            <div><span class="tl-role">Business Planner</span> — <span class="tl-company">Integrated Micro Electronics (IMI)</span></div>
+            <div class="tl-date">2019 – 2020</div>
+          </div>
+          <p>Monitored material shortage reports and supply plans; generated weekly production and shipment plans to meet dynamic customer demand via daily SAP transactions.</p>
+        </div>
+        <div class="tl-item">
+          <div class="tl-role-row">
+            <div><span class="tl-role">Production Planner &amp; Inventory Controller</span> — <span class="tl-company">Nitto Denko Philippines</span></div>
+            <div class="tl-date">2018 – 2019</div>
+          </div>
+          <p>Issued production job orders and generated daily shipment plans; controlled direct and indirect material inventory for live production lines.</p>
+        </div>
+        <div class="tl-item">
+          <div class="tl-role-row">
+            <div><span class="tl-role">Production &amp; Capacity Planner</span> — <span class="tl-company">Tokai Rika Philippines</span></div>
+            <div class="tl-date">2015 – 2018</div>
+          </div>
+          <p>Led capacity planning and scheduling in a Just-In-Time (JIT) environment; managed SAP planning transactions and inventory targets with Procurement, Manufacturing, and Engineering.</p>
+        </div>
+        <div class="tl-item">
+          <div class="tl-role-row">
+            <div><span class="tl-role">Import &amp; Export Staff</span> — <span class="tl-company">Palmphil Garments</span></div>
+            <div class="tl-date">2015</div>
+          </div>
+          <p>Prepared waybills, commercial invoices, and international shipping documentation; handled freight forwarder queries and filed PEZA compliance documents.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SYSTEMS -->
+  <section id="systems">
+    <div class="wrap">
+      <div class="eyebrow">Systems</div>
+      <h2 class="section-title">How I work across the stack</h2>
+      <p class="section-sub">Proficiency labeled honestly — hands-on where I've used the system in a live account, beginner where exposure is still building.</p>
+
+      <!-- Carton Cloud WMS -->
+      <div class="sys-block">
+        <div class="sys-head"><span class="sys-tag">WMS</span><h3>Carton Cloud</h3><span class="prof-tag">Hands-on</span></div>
+        <p class="sys-desc">Warehouse operations from receiving through dispatch — the physical side of an order.</p>
+        <div class="sys-cols">
+          <ul class="cap-list">
+            <li>Receiving &amp; QC</li><li>Put-away</li>
+            <li>Inventory accuracy</li><li>Picking &amp; Packing</li>
+            <li>Stock movements</li><li>Dispatch &amp; POD</li>
+          </ul>
+          <div>
+            <div class="flow">
+              <span class="flow-step">PO Received</span><span class="flow-arrow">→</span>
+              <span class="flow-step">Receiving</span><span class="flow-arrow">→</span>
+              <span class="flow-step">Put-away</span><span class="flow-arrow">→</span>
+              <span class="flow-step">Pick / Pack</span><span class="flow-arrow">→</span>
+              <span class="flow-step">Dispatch</span><span class="flow-arrow">→</span>
+              <span class="flow-step">POD</span>
+            </div>
+            <span class="sim-badge">Simulated workflow — portfolio demonstration</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cario FMS -->
+      <div class="sys-block">
+        <div class="sys-head"><span class="sys-tag">FMS</span><h3>Cario</h3><span class="prof-tag">Hands-on</span></div>
+        <p class="sys-desc">Freight and fleet-side coordination — bookings, despatch tracking, and carrier performance behind the &gt;95% DIFOT result at ouvar.</p>
+        <div class="mini-panel">
+          <div class="mini-panel-label">Despatch Overview</div>
+          <table class="mini-table">
+            <thead><tr><th>Job</th><th>Client</th><th>Carrier</th><th>Route</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr><td>ACT-1042</td><td>Client A</td><td>Carrier A</td><td>Sydney → Melbourne</td><td><span class="status-pill status-transit">In Transit</span></td></tr>
+              <tr><td>ACT-1043</td><td>Client B</td><td>Carrier B</td><td>Brisbane → Perth</td><td><span class="status-pill status-booked">Booked</span></td></tr>
+            </tbody>
+          </table>
+          <div class="kpi-mini-row" style="margin-top:16px;">
+            <div class="kpi-mini"><b>&gt;95%</b><span>DIFOT</span></div>
+            <div class="kpi-mini"><b>10–18%</b><span>Freight Cost Reduction</span></div>
+          </div>
+        </div>
+        <span class="sim-badge">Simulated workflow — portfolio demonstration</span>
+      </div>
+
+      <!-- CargoWise -->
+      <div class="sys-block">
+        <div class="sys-head"><span class="sys-tag">FF</span><h3>CargoWise</h3><span class="prof-tag beginner">Beginner exposure</span></div>
+        <p class="sys-desc">Early-stage familiarity with the freight forwarding workflow: shipment records, bookings, documentation, and operational milestones from order to job closure.</p>
+        <div class="flow">
+          <span class="flow-step">Customer Order</span><span class="flow-arrow">→</span>
+          <span class="flow-step">Job Creation</span><span class="flow-arrow">→</span>
+          <span class="flow-step">Booking</span><span class="flow-arrow">→</span>
+          <span class="flow-step">Export Docs</span><span class="flow-arrow">→</span>
+          <span class="flow-step">Transit</span><span class="flow-arrow">→</span>
+          <span class="flow-step">Customs</span><span class="flow-arrow">→</span>
+          <span class="flow-step">Delivery</span><span class="flow-arrow">→</span>
+          <span class="flow-step">Job Closure</span>
+        </div>
+        <span class="sim-badge">Simulated workflow — reflects beginner-level exposure, not production use</span>
+      </div>
+
+      <!-- SAP ERP -->
+      <div class="sys-block">
+        <div class="sys-head"><span class="sys-tag">ERP</span><h3>SAP ERP</h3><span class="prof-tag">Hands-on</span></div>
+        <p class="sys-desc">Material planning, production scheduling, and inventory control across three manufacturing roles — Tokai Rika, Nitto Denko, and IMI.</p>
+        <div class="sys-cols">
+          <ul class="cap-list">
+            <li>Material Requirements Planning</li><li>Production Scheduling</li>
+            <li>Inventory Targets</li><li>Capacity Planning</li>
+            <li>Supply-Demand Gap Tracking</li><li>Daily Transaction Processing</li>
+          </ul>
+          <div>
+            <div class="flow">
+              <span class="flow-step">Demand Forecast</span><span class="flow-arrow">→</span>
+              <span class="flow-step">MRP Run</span><span class="flow-arrow">→</span>
+              <span class="flow-step">Material Plan</span><span class="flow-arrow">→</span>
+              <span class="flow-step">Production Schedule</span><span class="flow-arrow">→</span>
+              <span class="flow-step">Shipment Plan</span>
+            </div>
+            <span class="sim-badge">Simulated workflow — portfolio demonstration</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Zoho CRM -->
+      <div class="sys-block">
+        <div class="sys-head"><span class="sys-tag">CRM</span><h3>Zoho CRM</h3><span class="prof-tag">Hands-on</span></div>
+        <p class="sys-desc">Supplier, carrier, and client relationship tracking — keeping communication history, follow-ups, and documentation status visible across every account.</p>
+        <div class="sys-cols">
+          <ul class="cap-list">
+            <li>Supplier &amp; Vendor Records</li><li>Client Communication Log</li>
+            <li>Task &amp; Follow-up Tracking</li><li>Pipeline / Deal Stages</li>
+            <li>Document Attachment History</li><li>Custom Reporting Views</li>
+          </ul>
+          <div>
+            <div class="flow">
+              <span class="flow-step">Lead / Account</span><span class="flow-arrow">→</span>
+              <span class="flow-step">Contact Log</span><span class="flow-arrow">→</span>
+              <span class="flow-step">Task Assigned</span><span class="flow-arrow">→</span>
+              <span class="flow-step">Follow-up</span><span class="flow-arrow">→</span>
+              <span class="flow-step">Status Update</span>
+            </div>
+            <span class="sim-badge">Simulated workflow — portfolio demonstration</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Excel Control Tower -->
+      <div class="sys-block">
+        <div class="sys-head"><span class="sys-tag">RPT</span><h3>Excel Control Tower</h3><span class="prof-tag">Hands-on</span></div>
+        <p class="sys-desc">Shipment overview and risk classification built for daily reporting and stock reconciliation.</p>
+        <div class="mini-panel">
+          <div class="mini-panel-label">Shipment Overview</div>
+          <div class="kpi-mini-row">
+            <div class="kpi-mini"><b>48</b><span>Total Shipments</span></div>
+            <div class="kpi-mini"><b>21</b><span>In Transit</span></div>
+            <div class="kpi-mini"><b>12</b><span>Booked</span></div>
+            <div class="kpi-mini"><b>12</b><span>Delivered</span></div>
+          </div>
+          <table class="mini-table">
+            <thead><tr><th>Job</th><th>Client</th><th>Supplier</th><th>Mode</th><th>ETD</th><th>ETA</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr><td>PERM536</td><td>Client A</td><td>Factory A</td><td>FCL</td><td>15-Sep</td><td>30-Sep</td><td><span class="status-pill status-transit">In Transit</span></td></tr>
+              <tr><td>PERM537</td><td>Client B</td><td>Factory B</td><td>FCL</td><td>18-Sep</td><td>03-Oct</td><td><span class="status-pill status-booked">Booked</span></td></tr>
+              <tr><td>PERM538</td><td>Client A</td><td>Factory C</td><td>LCL</td><td>12-Sep</td><td>27-Sep</td><td><span class="status-pill status-risk">At Risk</span></td></tr>
+            </tbody>
+          </table>
+          <div class="risk-legend">
+            <span><span class="dot-sm" style="background:var(--neutral-status)"></span>Delivered</span>
+            <span><span class="dot-sm" style="background:var(--berry)"></span>Booked — awaiting despatch</span>
+            <span><span class="dot-sm" style="background:var(--racing)"></span>At Risk — ETA within 3 days, not despatched</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CASE STUDIES -->
+  <section id="cases">
+    <div class="wrap">
+      <div class="eyebrow">Case Studies</div>
+      <h2 class="section-title">Logistics thinking, drawn from real roles</h2>
+      <div class="case-grid">
+        <div class="case-card">
+          <div class="case-num">CASE 01</div>
+          <h4>National Retail Activation Logistics</h4>
+          <p><strong>Context:</strong> Operations Manager, ouvar — end-to-end logistics for national retail activation programs across multiple clients and 3PLs.</p>
+          <div class="flow">
+            <span class="flow-step">Route Optimization</span><span class="flow-arrow">→</span>
+            <span class="flow-step">Consolidation</span><span class="flow-arrow">→</span>
+            <span class="flow-step">Despatch Governance</span><span class="flow-arrow">→</span>
+            <span class="flow-step">Proactive Tracking</span>
+          </div>
+          <p><strong>Result:</strong> 10–18% freight cost reduction and &gt;95% DIFOT performance sustained across programs.</p>
+        </div>
+        <div class="case-card">
+          <div class="case-num">CASE 02</div>
+          <h4>Campaign Launch Project Management</h4>
+          <p><strong>Context:</strong> Project Manager, ouvar — coordinating 3PLs, warehouses, suppliers, and internal teams for high-value activation launches.</p>
+          <div class="flow">
+            <span class="flow-step">Project Plan</span><span class="flow-arrow">→</span>
+            <span class="flow-step">Timeline</span><span class="flow-arrow">→</span>
+            <span class="flow-step">Risk Mitigation</span><span class="flow-arrow">→</span>
+            <span class="flow-step">Rollout</span>
+          </div>
+          <p><strong>Result:</strong> streamlined workflows reduced planning cycle times and improved cross-team visibility.</p>
+        </div>
+        <div class="case-card">
+          <div class="case-num">CASE 03</div>
+          <h4>SAP-Driven Capacity &amp; Material Planning</h4>
+          <p><strong>Context:</strong> Production &amp; Capacity Planner, Tokai Rika — Just-In-Time manufacturing environment.</p>
+          <div class="flow">
+            <span class="flow-step">Demand Forecast</span><span class="flow-arrow">→</span>
+            <span class="flow-step">Capacity Analysis</span><span class="flow-arrow">→</span>
+            <span class="flow-step">Material Allocation</span><span class="flow-arrow">→</span>
+            <span class="flow-step">Production Schedule</span>
+          </div>
+          <p><strong>Result:</strong> proactively mitigated capacity bottlenecks across Procurement, Manufacturing, and Engineering.</p>
+        </div>
+        <div class="case-card">
+          <div class="case-num">CASE 04</div>
+          <h4>Freight Consolidation &amp; Shipment Planning</h4>
+          <p><strong>Context:</strong> Operations Manager, ouvar — planning loads and consolidating freight across multiple clients and lanes to cut cost without missing delivery windows.</p>
+          <div class="flow">
+            <span class="flow-step">Cargo Availability</span><span class="flow-arrow">→</span>
+            <span class="flow-step">CBM / Load Calc</span><span class="flow-arrow">→</span>
+            <span class="flow-step">Consolidation Plan</span><span class="flow-arrow">→</span>
+            <span class="flow-step">Carrier Booking</span><span class="flow-arrow">→</span>
+            <span class="flow-step">Despatch</span>
+          </div>
+          <p><strong>Result:</strong> consolidated loads and optimized routing contributed directly to the 10–18% freight cost reduction.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EDUCATION & CERTIFICATIONS -->
+  <section id="education">
+    <div class="wrap">
+      <div class="eyebrow">Education &amp; Certifications</div>
+      <h2 class="section-title">Background</h2>
+      <div class="edu-grid">
+        <div>
+          <div class="edu-item">
+            <div class="deg">Master of Business Administration (MBA)</div>
+            <div class="school">Philippine Christian University</div>
+            <div class="yr">2023 – 2024</div>
+          </div>
+          <div class="edu-item">
+            <div class="deg">B.S. Business Management — Operations Management</div>
+            <div class="school">STI College</div>
+            <div class="yr">2011 – 2015</div>
+          </div>
+        </div>
+        <div>
+          <ul class="cert-list">
+            <li><span>EF SET English Certificate — C1 Advanced</span><span>2026</span></li>
+            <li><span>Lean Six Sigma Yellow Belt</span><span>2026</span></li>
+            <li><span>Project Management 101: Hybrid &amp; Agile</span><span>2024</span></li>
+            <li><span>Effective Leadership &amp; Management 101</span><span>2024</span></li>
+            <li><span>Virtual Assistance Technical Training</span><span>2020</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TOOLS -->
+  <section id="tools">
+    <div class="wrap">
+      <div class="eyebrow">Tools I Use</div>
+      <h2 class="section-title">Skills &amp; Tools</h2>
+      <div class="tools-grid">
+        <div class="tool-cell"><div class="grp-row"><span class="grp">WMS</span><span class="prof-tag">Hands-on</span></div><div class="name">Carton Cloud</div><div class="desc">Warehouse &amp; inventory operations</div></div>
+        <div class="tool-cell"><div class="grp-row"><span class="grp">FMS</span><span class="prof-tag">Hands-on</span></div><div class="name">Cario</div><div class="desc">Freight &amp; fleet despatch tracking</div></div>
+        <div class="tool-cell"><div class="grp-row"><span class="grp">Carrier</span><span class="prof-tag">Hands-on</span></div><div class="name">FedEx / DHL</div><div class="desc">Parcel &amp; international carrier tools</div></div>
+        <div class="tool-cell"><div class="grp-row"><span class="grp">Freight Forwarding</span><span class="prof-tag beginner">Beginner</span></div><div class="name">CargoWise</div><div class="desc">Shipment records &amp; documentation</div></div>
+        <div class="tool-cell"><div class="grp-row"><span class="grp">ERP</span><span class="prof-tag">Hands-on</span></div><div class="name">SAP ERP</div><div class="desc">Material planning &amp; production scheduling</div></div>
+        <div class="tool-cell"><div class="grp-row"><span class="grp">CRM</span><span class="prof-tag">Hands-on</span></div><div class="name">Zoho CRM</div><div class="desc">Supplier, carrier &amp; client relationship tracking</div></div>
+        <div class="tool-cell"><div class="grp-row"><span class="grp">Reporting</span><span class="prof-tag">Advanced</span></div><div class="name">Microsoft Excel</div><div class="desc">Control towers, tracking, KPI reporting</div></div>
+        <div class="tool-cell"><div class="grp-row"><span class="grp">Office</span><span class="prof-tag">Hands-on</span></div><div class="name">MS Word / Outlook</div><div class="desc">Documentation &amp; correspondence</div></div>
+        <div class="tool-cell"><div class="grp-row"><span class="grp">Project Management</span><span class="prof-tag">Hands-on</span></div><div class="name">Jira / Trello / Notion</div><div class="desc">Project &amp; workflow tracking</div></div>
+        <div class="tool-cell"><div class="grp-row"><span class="grp">Comms</span><span class="prof-tag">Hands-on</span></div><div class="name">Slack</div><div class="desc">Cross-team &amp; client coordination</div></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer id="contact">
+  <div class="wrap">
+    <div class="contact-grid">
+      <h2>Looking for a logistics coordinator who can own documentation, freight, and inventory end to end? Let's talk.</h2>
+      <div class="contact-links">
+        <a class="btn btn-primary" href="mailto:beso.allyssa@gmail.com">beso.allyssa@gmail.com</a>
+        <a class="btn btn-ghost" href="https://linkedin.com/in/yssabeso">LinkedIn ↗</a>
+        <a class="btn btn-ghost" href="resume.pdf" download>Download Résumé ↓</a>
+      </div>
+    </div>
+    <div class="foot-meta">
+      <span>Cabuyao City, Laguna, Philippines</span>
+      <span>+63 946 614 1685</span>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Jan Allyssa Beso — Logistics Coordinator</span>
+      <span>Simulated systems clearly labeled · Sample files available on request</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  function tickClock(){
+    const el = document.getElementById('clock-utc');
+    if(!el) return;
+    const now = new Date();
+    const hh = String(now.getUTCHours()).padStart(2,'0');
+    const mm = String(now.getUTCMinutes()).padStart(2,'0');
+    const ss = String(now.getUTCSeconds()).padStart(2,'0');
+    el.textContent = `UTC ${hh}:${mm}:${ss}`;
+  }
+  tickClock();
+  setInterval(tickClock, 1000);
+
+  const mapBox = document.getElementById('mapBox');
+  const nodePositions = [
+    {x:'12%', y:'55%'}, {x:'34%', y:'30%'}, {x:'52%', y:'62%'},
+    {x:'68%', y:'25%'}, {x:'84%', y:'50%'}, {x:'46%', y:'80%'}
+  ];
+  nodePositions.forEach((pos, i) => {
+    const n = document.createElement('div');
+    n.className = 'node' + (i % 2 === 0 ? ' ping' : '');
+    n.style.left = pos.x; n.style.top = pos.y;
+    mapBox.appendChild(n);
+  });
+  for(let i=0;i<nodePositions.length-1;i++){
+    const a = nodePositions[i], b = nodePositions[i+1];
+    const line = document.createElement('div');
+    line.className = 'route';
+    line.style.left = a.x; line.style.top = a.y;
+    line.style.width = '18%';
+    mapBox.appendChild(line);
+  }
+
+  const lanes = [
+    {job:'ACT-1042', lane:'Sydney → Melbourne', eta:'Sep 30', status:'transit'},
+    {job:'ACT-1043', lane:'Brisbane → Perth', eta:'Oct 1', status:'booked'},
+    {job:'ACT-1044', lane:'Cabuyao → Manila', eta:'Sep 27', status:'risk'},
+    {job:'ACT-1045', lane:'Auckland → Sydney', eta:'Sep 24', status:'delivered'},
+  ];
+  const statusMeta = {
+    transit:{cls:'status-transit', label:'In Transit'},
+    booked:{cls:'status-booked', label:'Booked'},
+    risk:{cls:'status-risk', label:'At Risk'},
+    delivered:{cls:'status-delivered', label:'Delivered'}
+  };
+  const ttBody = document.getElementById('ttBody');
+  function renderTable(){
+    ttBody.innerHTML = '';
+    lanes.forEach(row => {
+      const meta = statusMeta[row.status];
+      const tr = document.createElement('tr');
+      tr.innerHTML = `<td>${row.job}</td><td>${row.lane}</td><td>${row.eta}</td>
+        <td><span class="status-pill ${meta.cls}">${meta.label}</span></td>`;
+      ttBody.appendChild(tr);
+    });
+  }
+  renderTable();
+  const cycle = ['booked','transit','risk','transit'];
+  let step = 0;
+  setInterval(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    step = (step + 1) % cycle.length;
+    lanes[1].status = cycle[step];
+    renderTable();
+  }, 4000);
+</script>
+
+</body>
+</html>
